@@ -17,9 +17,7 @@ namespace IJuniorHomeWork
             const double RUStoUSD = 0.019d;
             const double RUStoEUR = 0.018d;
 
-
-
-            double sumToConvert = 0;
+            double userEnteredSum = 0;
 
             bool exit = false;
             while (!exit)
@@ -42,91 +40,91 @@ namespace IJuniorHomeWork
                     case 1:
                         {
                             Console.Write("How much USD to convert: ");
-                            sumToConvert = Int32.Parse(Console.ReadLine());
+                            userEnteredSum = Int32.Parse(Console.ReadLine());
 
-                            if (SumCheck(walletUSD, sumToConvert))
+                            if (userEnteredSum > 0 & userEnteredSum > walletUSD)
                             {
-                                Console.WriteLine($"You do not have {sumToConvert} USD in your wallet.");
+                                Console.WriteLine($"You do not have {userEnteredSum} USD in your wallet.");
                                 break;
                             }
 
-                            walletUSD -= sumToConvert;
-                            walletRUS += sumToConvert * USDtoRUS;
+                            walletUSD -= userEnteredSum;
+                            walletRUS += userEnteredSum * USDtoRUS;
                             break;
                         }
                     case 2:
                         {
                             Console.Write("How much USD to convert: ");
-                            sumToConvert = Int32.Parse(Console.ReadLine());
+                            userEnteredSum = Int32.Parse(Console.ReadLine());
 
-                            if (SumCheck(walletUSD, sumToConvert))
+                            if (userEnteredSum > 0 & userEnteredSum > walletUSD)
                             {
-                                Console.WriteLine($"You do not have {sumToConvert} USD in your wallet.");
+                                Console.WriteLine($"You do not have {userEnteredSum} USD in your wallet.");
                                 break;
                             }
 
-                            walletUSD -= sumToConvert;
-                            walletEUR += sumToConvert * USDtoEUR;
+                            walletUSD -= userEnteredSum;
+                            walletEUR += userEnteredSum * USDtoEUR;
                             break;
                         }
                     case 3:
                         {
                             Console.Write("How much EUR to convert: ");
-                            sumToConvert = Int32.Parse(Console.ReadLine());
+                            userEnteredSum = Int32.Parse(Console.ReadLine());
 
-                            if (SumCheck(walletEUR, sumToConvert))
+                            if (userEnteredSum > 0 & userEnteredSum > walletEUR)
                             {
-                                Console.WriteLine($"You do not have {sumToConvert} EUR in your wallet.");
+                                Console.WriteLine($"You do not have {userEnteredSum} EUR in your wallet.");
                                 break;
                             }
 
-                            walletEUR -= sumToConvert;
-                            walletRUS += sumToConvert * EURtoRUS;
+                            walletEUR -= userEnteredSum;
+                            walletRUS += userEnteredSum * EURtoRUS;
                             break;
                         }
                     case 4:
                         {
                             Console.Write("How much EUR to convert: ");
-                            sumToConvert = Int32.Parse(Console.ReadLine());
+                            userEnteredSum = Int32.Parse(Console.ReadLine());
 
-                            if (SumCheck(walletEUR, sumToConvert))
+                            if (userEnteredSum > 0 & userEnteredSum > walletEUR)
                             {
-                                Console.WriteLine($"You do not have {sumToConvert} EUR in your wallet.");
+                                Console.WriteLine($"You do not have {userEnteredSum} EUR in your wallet.");
                                 break;
                             }
 
-                            walletEUR -= sumToConvert;
-                            walletUSD += sumToConvert * EURtoUSD;
+                            walletEUR -= userEnteredSum;
+                            walletUSD += userEnteredSum * EURtoUSD;
                             break;
                         }
                     case 5:
                         {
                             Console.Write("How much RUS to convert: ");
-                            sumToConvert = Int32.Parse(Console.ReadLine());
+                            userEnteredSum = Int32.Parse(Console.ReadLine());
 
-                            if (SumCheck(walletRUS, sumToConvert))
+                            if (userEnteredSum > 0 & userEnteredSum > walletRUS)
                             {
-                                Console.WriteLine($"You do not have {sumToConvert} RUS in your wallet.");
+                                Console.WriteLine($"You do not have {userEnteredSum} RUS in your wallet.");
                                 break;
                             }
 
-                            walletRUS -= sumToConvert;
-                            walletUSD += sumToConvert * RUStoUSD;
+                            walletRUS -= userEnteredSum;
+                            walletUSD += userEnteredSum * RUStoUSD;
                             break;
                         }
                     case 6:
                         {
                             Console.Write("How much RUS to convert: ");
-                            sumToConvert = Int32.Parse(Console.ReadLine());
+                            userEnteredSum = Int32.Parse(Console.ReadLine());
 
-                            if (SumCheck(walletRUS, sumToConvert))
+                            if (userEnteredSum > 0 & userEnteredSum > walletRUS)
                             {
-                                Console.WriteLine($"You do not have {sumToConvert} RUS in your wallet.");
+                                Console.WriteLine($"You do not have {userEnteredSum} RUS in your wallet.");
                                 break;
                             }
 
-                            walletRUS -= sumToConvert;
-                            walletEUR += sumToConvert * RUStoEUR;
+                            walletRUS -= userEnteredSum;
+                            walletEUR += userEnteredSum * RUStoEUR;
                             break;
                         }
                     case 7:
@@ -139,15 +137,8 @@ namespace IJuniorHomeWork
                             Console.WriteLine("Wrong input. Try againe.");
                             break;
                         }
-
                 }
             }
         }
-
-        static bool SumCheck(double walletSum, double SumToCovert)
-        {
-            return SumToCovert > 0 & SumToCovert > walletSum;
-        }
-
     }
 }
