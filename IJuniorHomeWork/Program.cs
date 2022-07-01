@@ -31,7 +31,8 @@ namespace IJuniorHomeWork
                 Console.WriteLine("4. Conwert EUR to USD.");
                 Console.WriteLine("5. Conwert RUS to USD.");
                 Console.WriteLine("6. Conwert RUS to EUR.");
-                Console.WriteLine("7. Exit \n");
+                Console.WriteLine("7. Exit");
+                Console.Write("Chose menu item: ");
 
                 Int32.TryParse(Console.ReadLine(), out menuItem);
 
