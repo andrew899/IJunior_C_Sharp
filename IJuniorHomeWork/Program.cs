@@ -21,7 +21,9 @@ namespace IJuniorHomeWork
                     break;
                 }
                 else
+                {
                     Console.WriteLine("Wrong password. Try again.");
+                }
             }
         }
     }
