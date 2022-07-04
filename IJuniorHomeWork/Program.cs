@@ -22,7 +22,6 @@ namespace IJuniorHomeWork
             Console.WriteLine($"Number: {number}");
             Console.WriteLine($"Exponent index: {exponentIndex}");
             Console.WriteLine($"Exponent result: {exponentResult}");
-
         }
     }
 }
