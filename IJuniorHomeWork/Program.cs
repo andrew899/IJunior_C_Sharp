@@ -6,11 +6,12 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            string bracketExpression = "(()(()))";
+            //string bracketExpression = "(()(()))";
             //string bracketExpression = ")(";
             //string bracketExpression = "(()))(()";
             //string bracketExpression = "(()";
             //string bracketExpression = "())";
+            string bracketExpression = "((()(()(()))))";
             char bracketOpen = '(';
             char bracketClose = ')';
             int bracketOpenAmount = 0;
@@ -36,7 +37,7 @@ namespace IJuniorHomeWork
                     {
                         maxDepth = depth;
                     }
-                    depth = 1;
+                    depth -= 1;
                 }
             }
 
