@@ -14,25 +14,23 @@ namespace IJuniorHomeWork
             string bracketExpression = "((()(()(()))))";
             char bracketOpen = '(';
             char bracketClose = ')';
-            int bracketOpenAmount = 0;
-            int bracketCloseAmount = 0;
             int maxDepth = 0;
             int depth = 0;
 
             foreach (var item in bracketExpression)
             {
-                if (bracketCloseAmount > bracketOpenAmount)
+                if (depth < 0)
                 {
                     break;
                 }
                 else if(item.Equals(bracketOpen))
                 {
-                    bracketOpenAmount++;
+                    
                     depth++;
                 }
                 else if (item.Equals(bracketClose))
                 {
-                    bracketCloseAmount++;
+                    
                     if(maxDepth < depth)
                     {
                         maxDepth = depth;
@@ -41,7 +39,7 @@ namespace IJuniorHomeWork
                 }
             }
 
-            if(bracketOpenAmount == bracketCloseAmount && maxDepth > 0)
+            if(depth == 0)
             {
                 Console.WriteLine("Bracket expresion " + bracketExpression + " is correct.");
                 Console.WriteLine($"Depth: {maxDepth}");
