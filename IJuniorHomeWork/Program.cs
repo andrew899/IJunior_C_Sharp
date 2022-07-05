@@ -25,12 +25,10 @@ namespace IJuniorHomeWork
                 }
                 else if(item.Equals(bracketOpen))
                 {
-                    
                     depth++;
                 }
                 else if (item.Equals(bracketClose))
                 {
-                    
                     if(maxDepth < depth)
                     {
                         maxDepth = depth;
