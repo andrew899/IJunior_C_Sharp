@@ -18,29 +18,25 @@ namespace IJuniorHomeWork
                 ints[i] = random.Next(randomMax + 1);
             }
 
-            foreach (var item in ints)
+            foreach (int element in ints)
             {
-                Console.Write(item + " ");
+                Console.Write(element + " ");
+            }
+
+            if (ints[firstElement] > ints[firstElement + 1])
+            {
+                Console.WriteLine(ints[firstElement]);
+            }
+
+            if (ints[lastElement] > ints[lastElement - 1])
+            {
+                Console.WriteLine(ints[lastElement]);
             }
 
             Console.WriteLine("\nLocal maximum: ");
-            for (int i = 0; i < ints.Length; i++)
+            for (int i = firstElement + 1; i < lastElement; i++)
             {
-                if (i == firstElement)
-                {
-                    if (ints[i] > ints[i + 1])
-                    {
-                        Console.WriteLine(ints[i]);
-                    }
-                }
-                else if (i == lastElement)
-                {
-                    if (ints[i] > ints[i - 1])
-                    {
-                        Console.WriteLine(ints[i]);
-                    }
-                }
-                else if (ints[i] > ints[i - 1] && ints[i] > ints[i + 1])
+                if (ints[i] > ints[i - 1] && ints[i] > ints[i + 1])
                 {
                     Console.WriteLine(ints[i]);
                 }
