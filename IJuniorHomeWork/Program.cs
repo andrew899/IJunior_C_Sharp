@@ -6,26 +6,27 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            int arraySize = 3;
-
             int numberOfLine = 1;
             int numberOfColumn = 0;
             int sum = 0;
             int resultMultiplication = 1;
 
-            int[,] ints = { { 1, 1, 1 }, 
+            int[,] ints = { { 1, 2, 3 }, 
                             { 1, 1, 1 }, 
-                            { 1, 1, 1 } };
+                            { 7, 8, 9 } };
 
-            for (int i = 0; i < arraySize; i++)
+            for (int i = 0; i < ints.GetLength(0); i++)
             {
-                for (int j = 0; j < arraySize; j++)
+                for (int j = 0; j < ints.GetLength(1); j++)
                 {
-                    sum += ints[numberOfLine,j];
+                    if (j == numberOfColumn)
+                        resultMultiplication *= ints[i,j];
+
+                    if (i == numberOfLine)
+                        sum += ints[i,j];
 
                     Console.Write(ints[i, j] + " ");
                 }
-                resultMultiplication *= ints[i,numberOfColumn];
                 Console.WriteLine();
             }
 
