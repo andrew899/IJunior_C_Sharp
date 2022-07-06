@@ -14,23 +14,21 @@ namespace IJuniorHomeWork
             int bossDamage = 10;
             int bossHeal = 10;
             int bossAmountAbilities = 3;
-
             int playerHealth = 100;
             int playerAmountAbilities = 4;
-            
             int playerArmor = 0;
             int playerArmorAdd = 10;
-
             bool playerRamashone = false;
             int ramashanAmountAttacksStart = 3;
             int ramashanAmountAttacks = 3;
             int ramashanCostHealthCall = 20;
             int ramashanDamage = 10;
-
             bool playerDimensionalRift = false;
             int playerHealChance = 20;
             int playerHealMin = 5;
             int playerHealMax = 40;
+            int minChance = 1;
+            int maxChance = 100;
 
             Console.WriteLine("BOSS FIGTH!!!");
             while (bossHealth > 0 && playerHealth > 0)
@@ -68,6 +66,7 @@ namespace IJuniorHomeWork
 
                 Console.WriteLine("\nBoss turn:");
                 int bossTurn = random.Next(1, bossAmountAbilities + 1);
+
                 switch (bossTurn)
                 {
                     case 1:
@@ -107,6 +106,7 @@ namespace IJuniorHomeWork
                             break;
                         }
                 }
+
                 Console.WriteLine();
 
                 if (playerHealth <= 0)
@@ -117,6 +117,7 @@ namespace IJuniorHomeWork
                 int playerChoisee;
                 int playerChoiseeTries = 3;
                 playerDimensionalRift = false;
+
                 do
                 {
                     Console.WriteLine("Abilities: \n" +
@@ -188,8 +189,8 @@ namespace IJuniorHomeWork
                             playerDimensionalRift = true;
                             Console.WriteLine("You step aside and found yourself in Dimenshion Rift. No one can get to you. Dimenshion Rift garble orders.");
 
-                            int chance = random.Next(1, 100);
-                            if (chance <= 20)
+                            int chance = random.Next(minChance, maxChance);
+                            if (chance <= playerHealChance)
                             {
                                 int heal = random.Next(playerHealMin, playerHealMax);
                                 playerHealth += heal;
@@ -208,6 +209,7 @@ namespace IJuniorHomeWork
                             break;
                         }
                 }
+
                 Console.WriteLine();
             }
 
