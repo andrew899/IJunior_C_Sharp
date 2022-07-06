@@ -109,7 +109,7 @@ namespace IJuniorHomeWork
                 }
                 Console.WriteLine();
 
-                if (playerHealth >= 0)
+                if (playerHealth <= 0)
                 {
                     break;
                 }
