@@ -46,8 +46,7 @@ namespace IJuniorHomeWork
                 {
                     if (ints[i, j] == maxElement)
                     {
-                        Console.Write(elementForOutput + " ");
-                        continue;
+                        ints[i,j] = elementForOutput;
                     }
 
                     Console.Write(ints[i, j] + " ");
