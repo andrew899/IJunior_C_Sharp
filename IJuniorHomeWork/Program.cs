@@ -6,8 +6,17 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            int[] numbers = new int[] { 5, 5, 9, 9, 9, 5, 5 };
-            int maxRepeat = 1;
+            Random random = new Random();
+            int maxRandom = 10;
+            int arraySize = 30;
+            int[] numbers = new int[arraySize];
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = random.Next(maxRandom);
+            }
+
+            int maxRepeat = 0;
             int maxRepeatTemp = 1;
             int number = numbers[0];
             int numberTemp = numbers[0];
@@ -23,16 +32,17 @@ namespace IJuniorHomeWork
                     if (maxRepeatTemp > maxRepeat)
                     {
                         maxRepeat = maxRepeatTemp;
-                        maxRepeatTemp = 1;
                         number = numberTemp;
-                        numberTemp = numbers[i];
                     }
+
+                    maxRepeatTemp = 1;
+                    numberTemp = numbers[i];
                 }
             }
 
-            foreach (int i in numbers)
+            foreach (int element in numbers)
             {
-                Console.Write(i + " ");
+                Console.Write(element + " ");
             }
             Console.WriteLine();
 
