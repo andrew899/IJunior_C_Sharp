@@ -6,9 +6,9 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            var funcReturn = ReadInt();
+            int functionReturnNumber = ReadInt();
 
-            Console.WriteLine($"You enter: {funcReturn}");
+            Console.WriteLine($"You enter: {functionReturnNumber}");
         }
 
         private static int ReadInt()
