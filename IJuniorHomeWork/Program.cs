@@ -9,22 +9,22 @@ namespace IJuniorHomeWork
             int fullHealth = 10;
             int health = 4;
 
-            PrintHealth(health, fullHealth);
+            PrintBar(health, fullHealth);
         }
 
-        private static void PrintHealth(int health, int fullHealth)
+        private static void PrintBar(int activePart, int fullBarSize, char activeSymbol = '#', char emptySymbol = '_')
         {
-            Console.Write("Health [");
+            Console.Write("[");
 
-            while (fullHealth-- >= 0)
+            while (fullBarSize-- >= 0)
             {
-                if (health-- >= 0)
+                if (activePart-- >= 0)
                 {
-                    Console.Write("#");
+                    Console.Write(activeSymbol);
                 }
                 else
                 {
-                    Console.Write("_");
+                    Console.Write(emptySymbol);
                 }
             }
             
