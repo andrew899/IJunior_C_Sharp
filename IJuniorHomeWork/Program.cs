@@ -13,9 +13,9 @@ namespace IJuniorHomeWork
             Console.WriteLine(stringForSplit);
             Console.WriteLine("\nSplited:");
 
-            foreach (var item in splitStrings)
+            foreach (var splitString in splitStrings)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(splitString);
             }
         }
     }
