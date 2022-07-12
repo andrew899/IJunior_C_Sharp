@@ -74,34 +74,21 @@ namespace IJuniorHomeWork
             Console.Write("Enter job position: ");
             jobPositionInput = Console.ReadLine();
 
-            AddName(ref names, nameInput);
-            AddJobPosition(ref jobPositions, jobPositionInput);
+            AddFileToArray(ref names, nameInput);
+            AddFileToArray(ref jobPositions, jobPositionInput);
         }
 
-        private static void AddName(ref string[] names, string nameToAdd)
+        private static void AddFileToArray(ref string[] array, string itemToAdd)
         {
-            string[] tempNames = new string [names.Length + 1];
+            string[] tempNames = new string [array.Length + 1];
 
-            for (int i = 0; i < names.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                tempNames[i] = names[i];
+                tempNames[i] = array[i];
             }
 
-            tempNames[names.Length] = nameToAdd;
-            names = tempNames;
-        }
-
-        private static void AddJobPosition(ref string[] jobPositions, string jobPositionToAdd)
-        {
-            string[] tempJobs = new string[jobPositions.Length + 1];
-
-            for (int i = 0; i < jobPositions.Length; i++)
-            {
-                tempJobs[i] = jobPositions[i];
-            }
-
-            tempJobs[jobPositions.Length] = jobPositionToAdd;
-            jobPositions = tempJobs;
+            tempNames[array.Length] = itemToAdd;
+            array = tempNames;
         }
 
         private static void PrintFileAll(string[] names, string[] jobPositions)
@@ -158,8 +145,8 @@ namespace IJuniorHomeWork
 
                 if (userInputIndex < names.Length)
                 {
-                    DeleteNameByIndex(userInputIndex, ref names);
-                    DeleteJobPositionByIndex(userInputIndex, ref jobPositions);
+                    DeleteItemInArrayByIndex(userInputIndex, ref names);
+                    DeleteItemInArrayByIndex(userInputIndex, ref jobPositions);
                 }
             }
             else
@@ -168,38 +155,21 @@ namespace IJuniorHomeWork
             }
         }
 
-        private static void DeleteNameByIndex(int userIndex, ref string[] names)
+        private static void DeleteItemInArrayByIndex(int indexToDelete, ref string[] array)
         {
-            string[] tempNames = new string[names.Length - 1];
+            string[] tempNames = new string[array.Length - 1];
 
-            for (int i = 0, j = 0; i < names.Length; i++, j++)
+            for (int i = 0, j = 0; i < array.Length; i++, j++)
             {
-                if(i == userIndex)
+                if(i == indexToDelete)
                 {
                     i++;
                 }
 
-                tempNames[j] = names[i];
+                tempNames[j] = array[i];
             }
 
-            names = tempNames;
-        }
-
-        private static void DeleteJobPositionByIndex(int userIndex, ref string[] jobPositions)
-        {
-            string[] tempJobPositions = new string[jobPositions.Length - 1];
-
-            for (int i = 0, j = 0; i < jobPositions.Length; i++, j++)
-            {
-                if (i == userIndex)
-                {
-                    i++;
-                }
-                
-                tempJobPositions[j] = jobPositions[i];
-            }
-
-            jobPositions = tempJobPositions;
+            array = tempNames;
         }
     }
 }
