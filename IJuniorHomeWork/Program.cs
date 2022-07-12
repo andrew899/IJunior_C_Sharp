@@ -33,6 +33,7 @@ namespace IJuniorHomeWork
             {
                 if (PlayerWin(map, playerX, playerY, finishSymbol))
                 {
+                    Console.WriteLine("\nCongratulations. You WIN!!!");
                     break;
                 }
                 PrintMap(map, playerX, playerY, player);
@@ -99,7 +100,10 @@ namespace IJuniorHomeWork
 
         private static void PrintMap(char[,] map, int playerX, int playerY, char player)
         {
-            Console.Clear();
+            int consoleCursoerLeft = 0;
+            int consoleCursoreTop = 1;
+            Console.SetCursorPosition(consoleCursoerLeft, consoleCursoreTop);
+
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
