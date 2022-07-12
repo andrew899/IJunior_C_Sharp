@@ -4,17 +4,15 @@ namespace IJuniorHomeWork
 {
     class Program
     {
-        static string[] names = new string[] {"Billy Bones", "David Livesey", "Jim Hawkins", "Tomath Bones", };
-        static string[] jobPositions = new string[] {"Pirate", "Doctor", "Ship boy", "Sailor"};
 
         static void Main(string[] args)
         {
-            bool exitMune = false;
-            int borderLength = 30;
-            string borderString = new string('=', borderLength);
+            string[] names = new string[] {"Billy Bones", "David Livesey", "Jim Hawkins", "Tomath Bones", };
+            string[] jobPositions = new string[] {"Pirate", "Doctor", "Ship boy", "Sailor"};
+            bool exitMenu = false;
             string userInputMenu;
 
-            while (exitMune == false)
+            while (exitMenu == false)
             {
                 Console.WriteLine("1. Add file.");
                 Console.WriteLine("2. Print all files.");
@@ -28,58 +26,37 @@ namespace IJuniorHomeWork
                 {
                     case "1":
                         {
-                            AddFile();
+                            AddFile(ref names, ref jobPositions);
                             break;
                         }
 
                     case "2":
                         {
-                            Console.WriteLine(borderString);
-                            PrintFileAll();
-                            Console.WriteLine(borderString);
+                            PrintFileAll(names, jobPositions);
                             break;
                         }
 
                     case "3":
                         {
-                            int userInputIndex;
-                            Console.Write("Enter Index: ");
-                            if(Int32.TryParse(Console.ReadLine(), out userInputIndex))
-                            {
-                                userInputIndex--;
-                                if(userInputIndex < names.Length)
-                                {
-                                    DeleteFileByIndex(userInputIndex);
-                                }
-                                Console.WriteLine(borderString);
-                                break;
-                            }
-                            Console.WriteLine("Wrong input.");
+                            DeleteFileByIndex(ref names, ref jobPositions);
                             break;
                         }
 
                     case "4":
                         {
-                            string userInputSurname;
-                            Console.WriteLine(borderString);
-                            Console.Write("Enter Surname: ");
-                            userInputSurname = Console.ReadLine();
-                            PrintFileBySurname(userInputSurname);
-                            Console.WriteLine(borderString);
+                            PrintFileBySurname(names, jobPositions);
                             break;
                         }
 
                     case "5":
                         {
-                            exitMune = true;
+                            exitMenu = true;
                             break;
                         }
 
                     default:
                         {
-                            Console.WriteLine(borderString);
                             Console.WriteLine("Wrong input.");
-                            Console.WriteLine(borderString);
                             break;
                         }
 
@@ -87,7 +64,7 @@ namespace IJuniorHomeWork
             }
         }
 
-        private static void AddFile()
+        private static void AddFile(ref string[] names, ref string[] jobPositions)
         {
             string nameInput;
             string jobPositionInput;
@@ -97,11 +74,11 @@ namespace IJuniorHomeWork
             Console.Write("Enter job position: ");
             jobPositionInput = Console.ReadLine();
 
-            AddName(nameInput);
-            AddJobPosition(jobPositionInput);
+            AddName(ref names, nameInput);
+            AddJobPosition(ref jobPositions, jobPositionInput);
         }
 
-        private static void AddName(string nameToAdd)
+        private static void AddName(ref string[] names, string nameToAdd)
         {
             string[] tempNames = new string [names.Length + 1];
 
@@ -114,7 +91,7 @@ namespace IJuniorHomeWork
             names = tempNames;
         }
 
-        private static void AddJobPosition(string jobPositionToAdd)
+        private static void AddJobPosition(ref string[] jobPositions, string jobPositionToAdd)
         {
             string[] tempJobs = new string[jobPositions.Length + 1];
 
@@ -127,9 +104,13 @@ namespace IJuniorHomeWork
             jobPositions = tempJobs;
         }
 
-        private static void PrintFileAll()
+        private static void PrintFileAll(string[] names, string[] jobPositions)
         {
-            if(names.Length == 0)
+            int borderLength = 30;
+            string borderString = new string('=', borderLength);
+            Console.WriteLine(borderString);
+
+            if (names.Length == 0)
             {
                 Console.WriteLine("There is no employees.");
                 return;
@@ -139,15 +120,21 @@ namespace IJuniorHomeWork
             {
                 Console.WriteLine($"{i + 1}. {names[i]} - {jobPositions[i]}");
             }
+
+            Console.WriteLine(borderString);
         }
 
-        private static void PrintFileBySurname(string surname)
+        private static void PrintFileBySurname(string[] names, string[] jobPositions)
         {
             bool nameFound = false;
+            string userInputSurname;
+
+            Console.Write("Enter Surname: ");
+            userInputSurname = Console.ReadLine();
 
             for (int i = 0; i < names.Length; i++)
             {
-                if(names[i].ToLower().Contains(surname.ToLower()))
+                if(names[i].ToLower().Contains(userInputSurname.ToLower()))
                 {
                     nameFound = true;
                     Console.WriteLine($"{i}. {names[i]} - {jobPositions[i]}");
@@ -160,13 +147,28 @@ namespace IJuniorHomeWork
             }
         }
 
-        private static void DeleteFileByIndex(int userIndex)
+        private static void DeleteFileByIndex(ref string[] names, ref string[] jobPositions)
         {
-            DeleteNameByIndex(userIndex);
-            DeleteJobPositionByIndex(userIndex);
+            int userInputIndex;
+            Console.Write("Enter Index: ");
+
+            if (Int32.TryParse(Console.ReadLine(), out userInputIndex))
+            {
+                userInputIndex--;
+
+                if (userInputIndex < names.Length)
+                {
+                    DeleteNameByIndex(userInputIndex, ref names);
+                    DeleteJobPositionByIndex(userInputIndex, ref jobPositions);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Wrong input.");
+            }
         }
 
-        private static void DeleteNameByIndex(int userIndex)
+        private static void DeleteNameByIndex(int userIndex, ref string[] names)
         {
             string[] tempNames = new string[names.Length - 1];
 
@@ -183,7 +185,7 @@ namespace IJuniorHomeWork
             names = tempNames;
         }
 
-        private static void DeleteJobPositionByIndex(int userIndex)
+        private static void DeleteJobPositionByIndex(int userIndex, ref string[] jobPositions)
         {
             string[] tempJobPositions = new string[jobPositions.Length - 1];
 
