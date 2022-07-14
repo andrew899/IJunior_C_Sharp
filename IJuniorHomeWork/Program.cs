@@ -9,27 +9,27 @@ namespace IJuniorHomeWork
         {
             string[] strings1 = new string[] { "1", "2", "1" };
             string[] strings2 = new string[] { "3", "2" };
-            List<string> joinedStringCollection = new List<string>();
+            HashSet<string> joinedStringCollection = new HashSet<string>();
 
-            foreach (string line in strings1)
+            AddUniqueElementInColectio(joinedStringCollection, strings1);
+            AddUniqueElementInColectio(joinedStringCollection, strings2);
+            PrintColection(joinedStringCollection);
+            
+        }
+
+        private static void AddUniqueElementInColectio(HashSet<string> colectionToInsetIn, string[] arrayToAdd)
+        {
+            foreach (string element in arrayToAdd)
             {
-                if (joinedStringCollection.Contains(line) == false)
-                {
-                    joinedStringCollection.Add(line);
-                }
+                colectionToInsetIn.Add(element);
             }
+        }
 
-            foreach (string line in strings2)
+        private static void PrintColection(HashSet<string> collectionToPrint)
+        {
+            foreach (string elemet in collectionToPrint)
             {
-                if (joinedStringCollection.Contains(line) == false)
-                {
-                    joinedStringCollection.Add(line);
-                }
-            }
-
-            foreach (string line in joinedStringCollection)
-            {
-                Console.Write(line + " ");
+                Console.Write(elemet + " ");
             }
         }
     }
