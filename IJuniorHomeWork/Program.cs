@@ -20,31 +20,33 @@ namespace IJuniorHomeWork
             char player = '@';
             int playerPositionX = 1;
             int playerPositionY = 1;
+            int playerNewPositionX = playerPositionX;
+            int playerNewPositionY = playerPositionY;
             bool isExit = false;
 
-            StartGame(ref map, ref player, ref playerPositionX, ref playerPositionY, finishSymbol, wallSymbol, isExit);
-        }
-
-        private static void StartGame(ref char[,] map, ref char player, ref int playerX, ref int playerY, char finishSymbol, char wallSymbol, bool isExit)
-        {
             Console.WriteLine("W - Up, S - Down, A - Left, D - Right. = Wall, * Finish");
 
             while (isExit == false)
             {
-                if (CheckWin(map, playerX, playerY, finishSymbol))
+                if (IsPlayerWin(map, playerPositionX, playerPositionY, finishSymbol))
                 {
                     Console.WriteLine("\nCongratulations. You WIN!!!");
-                    break;
+                    isExit = true;
+                    continue;
                 }
-                PrintMap(map, playerX, playerY, player);
-                PlayerMove(ref playerX, ref playerY, ref isExit, map, wallSymbol);
+
+                PrintMap(map, playerPositionX, playerPositionY, player);
+                InputFromUser(ref playerNewPositionX, ref playerNewPositionY, ref isExit, map, wallSymbol);
+
+                if((playerPositionX != playerNewPositionX || playerPositionY != playerNewPositionY) && map[playerNewPositionY, playerNewPositionX] != wallSymbol)
+                {
+                    ChagePlayerPosition(ref playerPositionX, ref playerPositionY, playerNewPositionX, playerNewPositionY);
+                }
             }
         }
 
-        private static void PlayerMove(ref int playerPositionX, ref int playerPositionY, ref bool isExit, char[,] map, char wallSymbol)
+        private static void InputFromUser(ref int playerNewPositionX, ref int playerNewPositionY, ref bool isExit, char[,] map, char wallSymbol)
         {
-            int playerNewPositionX = playerPositionX;
-            int playerNewPositionY = playerPositionY;
             var playerInput = Console.ReadKey().Key;
 
             switch (playerInput)
@@ -73,11 +75,6 @@ namespace IJuniorHomeWork
                         Console.WriteLine("Wrong input, W - Up, S - Down, A - Left, D - Right, ESC - Exit. = Wall, * Finish");
                         break;
             }
-
-            if (map[playerNewPositionY, playerNewPositionX] != wallSymbol)
-            {
-                ChagePlayerPosition(ref playerPositionX, ref playerPositionY, playerNewPositionX, playerNewPositionY);
-            }
         }
 
         private static void ChagePlayerPosition(ref int playerPositionX, ref int playerPositionY, int playerNewPositionX, int playerNewPositionY)
@@ -86,7 +83,7 @@ namespace IJuniorHomeWork
             playerPositionY = playerNewPositionY;
         }
 
-        private static bool CheckWin(char[,] map, int playerPositionX, int playerPositionY, char finishSymbol)
+        private static bool IsPlayerWin(char[,] map, int playerPositionX, int playerPositionY, char finishSymbol)
         {
             return map[playerPositionY, playerPositionX] == finishSymbol;
         }
