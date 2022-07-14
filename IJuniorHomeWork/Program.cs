@@ -16,63 +16,41 @@ namespace IJuniorHomeWork
                 { "System", "A set of things working together as parts of a mechanism or an interconnecting network." },
                 { "Word", "A single distinct meaningful element of speech or writing." }
             };
-
-            StartDictionary(wordDictionary);
-        }
-
-        private static void StartDictionary(Dictionary<string, string> wordDictionary)
-        {
             bool exit = false;
             string userInput;
+
             while (exit == false)
             {
-                int menuItem;
+                string menuItem;
 
                 Console.WriteLine("Dictionary.");
                 Console.WriteLine("1. Entet word.");
                 Console.WriteLine("2. Exit.");
-
-                if (Int32.TryParse(Console.ReadLine(), out menuItem) == false)
-                {
-                    Console.WriteLine("Try again.");
-                }
+                menuItem = Console.ReadLine();
 
                 switch (menuItem)
                 {
-                    case 1:
-                        {
+                    case "1":
                             Console.Write("Enter word:");
                             userInput = Console.ReadLine();
 
                             if (wordDictionary.ContainsKey(userInput) == false)
                             {
                                 Console.WriteLine("Sorry, Dicionary does not know this word.");
-                                continue;
+                                break;
                             }
 
-                            foreach (var dictionaryEntry in wordDictionary)
-                            {
-                                if (dictionaryEntry.Key.ToLower() == userInput.ToLower())
-                                {
-                                    Console.WriteLine(dictionaryEntry.Key + " - " + dictionaryEntry.Value);
-                                }
-                            }
-
+                            Console.WriteLine(wordDictionary[userInput]);
                             break;
-                        }
 
-                    case 2:
-                        {
+                    case "2":
                             exit = true;
                             break;
-                        }
 
                     default:
-                        {
                             Console.WriteLine("Wrong number. Try again.");
                             break;
-                        }
-                }
+                } 
             }
         }
     }
