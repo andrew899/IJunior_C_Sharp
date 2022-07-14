@@ -23,6 +23,7 @@ namespace IJuniorHomeWork
             int playerNewPositionX = playerPositionX;
             int playerNewPositionY = playerPositionY;
             bool isExit = false;
+            ConsoleKey playerInput;
 
             Console.WriteLine("W - Up, S - Down, A - Left, D - Right. = Wall, * Finish");
 
@@ -36,19 +37,28 @@ namespace IJuniorHomeWork
                 }
 
                 PrintMap(map, playerPositionX, playerPositionY, player);
-                InputFromUser(ref playerNewPositionX, ref playerNewPositionY, ref isExit, map, wallSymbol);
+                playerInput = Console.ReadKey().Key;
+                InputFromUser(ref playerNewPositionX, ref playerNewPositionY, ref isExit, playerInput);
 
                 if((playerPositionX != playerNewPositionX || playerPositionY != playerNewPositionY) && map[playerNewPositionY, playerNewPositionX] != wallSymbol)
                 {
-                    ChagePlayerPosition(ref playerPositionX, ref playerPositionY, playerNewPositionX, playerNewPositionY);
+                    ChagePlayerPosition(out playerPositionX, out playerPositionY, playerNewPositionX, playerNewPositionY);
+                }
+                else
+                {
+                    ResetPlayerNewPosition(out playerNewPositionX, out playerNewPositionY, playerPositionX, playerPositionY);
                 }
             }
         }
 
-        private static void InputFromUser(ref int playerNewPositionX, ref int playerNewPositionY, ref bool isExit, char[,] map, char wallSymbol)
+        private static void ResetPlayerNewPosition(out int playerNewPositionX, out int playerNewPositionY, int playerPositionX, int playerPositionY)
         {
-            var playerInput = Console.ReadKey().Key;
+            playerNewPositionX = playerPositionX;
+            playerNewPositionY = playerPositionY;
+        }
 
+        private static void InputFromUser(ref int playerNewPositionX, ref int playerNewPositionY, ref bool isExit, ConsoleKey playerInput)
+        {
             switch (playerInput)
             {
                 case ConsoleKey.W:
@@ -77,7 +87,7 @@ namespace IJuniorHomeWork
             }
         }
 
-        private static void ChagePlayerPosition(ref int playerPositionX, ref int playerPositionY, int playerNewPositionX, int playerNewPositionY)
+        private static void ChagePlayerPosition(out int playerPositionX, out int playerPositionY, int playerNewPositionX, int playerNewPositionY)
         {
             playerPositionX = playerNewPositionX;
             playerPositionY = playerNewPositionY;
