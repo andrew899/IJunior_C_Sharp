@@ -7,16 +7,16 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> nameJobPairs = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            bool exitMenu = false;
+            Dictionary<string, string> personal = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            bool isExit = false;
             string userInputMenu;
 
-            nameJobPairs.Add("Billy Bones", "Pirate");
-            nameJobPairs.Add("David Livesey", "Doctor");
-            nameJobPairs.Add("Jim Hawkins", "Ship boy");
-            nameJobPairs.Add("Tomath Bones", "Sailor");
+            personal.Add("Billy Bones", "Pirate");
+            personal.Add("David Livesey", "Doctor");
+            personal.Add("Jim Hawkins", "Ship boy");
+            personal.Add("Tomath Bones", "Sailor");
 
-            while (exitMenu == false)
+            while (isExit == false)
             {
                 Console.WriteLine("1. Add file.");
                 Console.WriteLine("2. Print all files.");
@@ -28,19 +28,19 @@ namespace IJuniorHomeWork
                 switch (userInputMenu)
                 {
                     case "1":
-                            AddFile(ref nameJobPairs);
+                            AddFile(personal);
                             break;
 
                     case "2":
-                            PrintFileAll(nameJobPairs);
+                            PrintFileAll(personal);
                             break;
 
                     case "3":
-                            DeleteFileByName(ref nameJobPairs);
+                            DeleteFileByName(personal);
                             break;
 
                     case "4":
-                            exitMenu = true;
+                            isExit = true;
                             break;
 
                     default:
@@ -50,32 +50,39 @@ namespace IJuniorHomeWork
             }
         }
 
-        private static void AddFile(ref Dictionary<string, string> namesJobsPairs)
+        private static void AddFile(Dictionary<string, string> personal)
         {
             string nameInput;
             string jobPositionInput;
 
             Console.Write("Enter name: ");
             nameInput = Console.ReadLine();
+            
+            if (personal.ContainsKey(nameInput))
+            {
+                Console.WriteLine($"{nameInput} alredy exist.");
+                return;
+            }
+
             Console.Write("Enter job position: ");
             jobPositionInput = Console.ReadLine();
 
-            namesJobsPairs.Add(nameInput, jobPositionInput);
+            personal.Add(nameInput, jobPositionInput);
         }
 
-        private static void PrintFileAll(Dictionary<string, string> namesJobsPairs)
+        private static void PrintFileAll(Dictionary<string, string> personal)
         {
             int borderLength = 30;
             string borderString = new string('=', borderLength);
             Console.WriteLine(borderString);
 
-            if (namesJobsPairs.Count == 0)
+            if (personal.Count == 0)
             {
                 Console.WriteLine("There is no employees.");
                 return;
             }
 
-            foreach (var nameJobPair in namesJobsPairs)
+            foreach (var nameJobPair in personal)
             {
                 Console.WriteLine($"{nameJobPair.Key} - {nameJobPair.Value}");
             }
@@ -83,15 +90,15 @@ namespace IJuniorHomeWork
             Console.WriteLine(borderString);
         }
 
-        private static void DeleteFileByName(ref Dictionary<string, string> namesJobsPairs)
+        private static void DeleteFileByName(Dictionary<string, string> personal)
         {
             string userInputName;
             Console.Write("Enter Name: ");
             userInputName = Console.ReadLine();
 
-            if (namesJobsPairs.ContainsKey(userInputName))
+            if (personal.ContainsKey(userInputName))
             {
-                namesJobsPairs.Remove(userInputName);
+                personal.Remove(userInputName);
             }
             else
             {
