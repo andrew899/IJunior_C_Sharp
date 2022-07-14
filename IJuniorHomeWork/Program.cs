@@ -50,40 +50,28 @@ namespace IJuniorHomeWork
             switch (playerInput)
             {
                 case ConsoleKey.W:
-                    {
                         playerNewPositionY--;
                         break;
-                    }
 
                 case ConsoleKey.S:
-                    {
                         playerNewPositionY++;
                         break;
-                    }
 
                 case ConsoleKey.A:
-                    {
                         playerNewPositionX--;
                         break;
-                    }
 
                 case ConsoleKey.D:
-                    {
                         playerNewPositionX++;
                         break;
-                    }
 
                 case ConsoleKey.Escape:
-                    {
                         isExit = true;
                         break;
-                    }
 
                 default:
-                    {
                         Console.WriteLine("Wrong input, W - Up, S - Down, A - Left, D - Right, ESC - Exit. = Wall, * Finish");
                         break;
-                    }
             }
 
             if (map[playerNewPositionY, playerNewPositionX] != wallSymbol)
