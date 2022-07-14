@@ -7,41 +7,39 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> nameJobPairs = new Dictionary<string, string> { }
-            string[] names = new string[] { "Billy Bones", "David Livesey", "Jim Hawkins", "Tomath Bones", };
-            string[] jobPositions = new string[] { "Pirate", "Doctor", "Ship boy", "Sailor" };
+            Dictionary<string, string> nameJobPairs = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
             bool exitMenu = false;
             string userInputMenu;
+
+            nameJobPairs.Add("Billy Bones", "Pirate");
+            nameJobPairs.Add("David Livesey", "Doctor");
+            nameJobPairs.Add("Jim Hawkins", "Ship boy");
+            nameJobPairs.Add("Tomath Bones", "Sailor");
 
             while (exitMenu == false)
             {
                 Console.WriteLine("1. Add file.");
                 Console.WriteLine("2. Print all files.");
-                Console.WriteLine("3. Delete file by index.");
-                Console.WriteLine("4. Find by Surname");
-                Console.WriteLine("5. Exit.");
+                Console.WriteLine("3. Delete file by Name.");
+                Console.WriteLine("4. Exit.");
                 Console.Write("Choose: ");
                 userInputMenu = Console.ReadLine();
 
                 switch (userInputMenu)
                 {
                     case "1":
-                            AddFile(ref names, ref jobPositions);
+                            AddFile(ref nameJobPairs);
                             break;
 
                     case "2":
-                            PrintFileAll(names, jobPositions);
+                            PrintFileAll(nameJobPairs);
                             break;
 
                     case "3":
-                            DeleteFileByIndex(ref names, ref jobPositions);
+                            DeleteFileByName(ref nameJobPairs);
                             break;
 
                     case "4":
-                            PrintFileBySurname(names, jobPositions);
-                            break;
-
-                    case "5":
                             exitMenu = true;
                             break;
 
@@ -52,7 +50,7 @@ namespace IJuniorHomeWork
             }
         }
 
-        private static void AddFile(ref string[] names, ref string[] jobPositions)
+        private static void AddFile(ref Dictionary<string, string> namesJobsPairs)
         {
             string nameInput;
             string jobPositionInput;
@@ -62,102 +60,43 @@ namespace IJuniorHomeWork
             Console.Write("Enter job position: ");
             jobPositionInput = Console.ReadLine();
 
-            AddFileToArray(ref names, nameInput);
-            AddFileToArray(ref jobPositions, jobPositionInput);
+            namesJobsPairs.Add(nameInput, jobPositionInput);
         }
 
-        private static void AddFileToArray(ref string[] array, string itemToAdd)
-        {
-            string[] tempNames = new string[array.Length + 1];
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                tempNames[i] = array[i];
-            }
-
-            tempNames[array.Length] = itemToAdd;
-            array = tempNames;
-        }
-
-        private static void PrintFileAll(string[] names, string[] jobPositions)
+        private static void PrintFileAll(Dictionary<string, string> namesJobsPairs)
         {
             int borderLength = 30;
             string borderString = new string('=', borderLength);
             Console.WriteLine(borderString);
 
-            if (names.Length == 0)
+            if (namesJobsPairs.Count == 0)
             {
                 Console.WriteLine("There is no employees.");
                 return;
             }
 
-            for (int i = 0; i < names.Length; i++)
+            foreach (var nameJobPair in namesJobsPairs)
             {
-                Console.WriteLine($"{i + 1}. {names[i]} - {jobPositions[i]}");
+                Console.WriteLine($"{nameJobPair.Key} - {nameJobPair.Value}");
             }
 
             Console.WriteLine(borderString);
         }
 
-        private static void PrintFileBySurname(string[] names, string[] jobPositions)
+        private static void DeleteFileByName(ref Dictionary<string, string> namesJobsPairs)
         {
-            bool nameFound = false;
-            string userInputSurname;
+            string userInputName;
+            Console.Write("Enter Name: ");
+            userInputName = Console.ReadLine();
 
-            Console.Write("Enter Surname: ");
-            userInputSurname = Console.ReadLine();
-
-            for (int i = 0; i < names.Length; i++)
+            if (namesJobsPairs.ContainsKey(userInputName))
             {
-                if (names[i].ToLower().Contains(userInputSurname.ToLower()))
-                {
-                    nameFound = true;
-                    Console.WriteLine($"{i}. {names[i]} - {jobPositions[i]}");
-                }
-            }
-
-            if (nameFound == false)
-            {
-                Console.WriteLine("No matches found.");
-            }
-        }
-
-        private static void DeleteFileByIndex(ref string[] names, ref string[] jobPositions)
-        {
-            int userInputIndex;
-            Console.Write("Enter Index: ");
-
-            if (Int32.TryParse(Console.ReadLine(), out userInputIndex))
-            {
-                userInputIndex--;
-
-                if (userInputIndex < names.Length)
-                {
-                    DeleteItemInArrayByIndex(userInputIndex, ref names);
-                    DeleteItemInArrayByIndex(userInputIndex, ref jobPositions);
-                }
+                namesJobsPairs.Remove(userInputName);
             }
             else
             {
                 Console.WriteLine("Wrong input.");
             }
-        }
-
-        private static void DeleteItemInArrayByIndex(int indexToDelete, ref string[] array)
-        {
-            string[] tempNames = new string[array.Length - 1];
-
-            for (int i = 0, j = 0; i < array.Length; i++, j++)
-            {
-                if (i == indexToDelete)
-                {
-                    i++;
-                }
-
-                tempNames[j] = array[i];
-            }
-
-            array = tempNames;
         }
     }
 }
