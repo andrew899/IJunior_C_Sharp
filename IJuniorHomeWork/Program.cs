@@ -38,53 +38,59 @@ namespace IJuniorHomeWork
 
                 PrintMap(map, playerPositionX, playerPositionY, player);
                 playerInput = Console.ReadKey().Key;
-                InputFromUser(ref playerNewPositionX, ref playerNewPositionY, ref isExit, playerInput);
 
-                if((playerPositionX != playerNewPositionX || playerPositionY != playerNewPositionY) && map[playerNewPositionY, playerNewPositionX] != wallSymbol)
+                if(TryGetNewPosition(ref playerNewPositionX, ref playerNewPositionY, playerInput))
                 {
-                    ChagePlayerPosition(out playerPositionX, out playerPositionY, playerNewPositionX, playerNewPositionY);
+                    if((playerPositionX != playerNewPositionX || playerPositionY != playerNewPositionY) && map[playerNewPositionY, playerNewPositionX] != wallSymbol)
+                    {
+                        ChagePlayerPosition(out playerPositionX, out playerPositionY, playerNewPositionX, playerNewPositionY);
+                    }
+                    else
+                    {
+                        ChagePlayerPosition(out playerNewPositionX, out playerNewPositionY, playerPositionX, playerPositionY);
+                    }
                 }
+
+                else if (playerInput == ConsoleKey.Escape)
+                {
+                    isExit = true;
+                }
+
                 else
                 {
-                    ResetPlayerNewPosition(out playerNewPositionX, out playerNewPositionY, playerPositionX, playerPositionY);
+                    Console.WriteLine("Wrong input, W - Up, S - Down, A - Left, D - Right, ESC - Exit. = Wall, * Finish");
                 }
             }
         }
 
-        private static void ResetPlayerNewPosition(out int playerNewPositionX, out int playerNewPositionY, int playerPositionX, int playerPositionY)
+        private static bool TryGetNewPosition(ref int playerNewPositionX, ref int playerNewPositionY, ConsoleKey playerInput)
         {
-            playerNewPositionX = playerPositionX;
-            playerNewPositionY = playerPositionY;
-        }
+            bool result = false;
 
-        private static void InputFromUser(ref int playerNewPositionX, ref int playerNewPositionY, ref bool isExit, ConsoleKey playerInput)
-        {
             switch (playerInput)
             {
                 case ConsoleKey.W:
-                        playerNewPositionY--;
-                        break;
+                    playerNewPositionY--;
+                    result = true;
+                    break;
 
                 case ConsoleKey.S:
-                        playerNewPositionY++;
-                        break;
+                    playerNewPositionY++;
+                    result = true;
+                    break;
 
                 case ConsoleKey.A:
-                        playerNewPositionX--;
-                        break;
+                    playerNewPositionX--;
+                    result = true;
+                    break;
 
                 case ConsoleKey.D:
-                        playerNewPositionX++;
-                        break;
-
-                case ConsoleKey.Escape:
-                        isExit = true;
-                        break;
-
-                default:
-                        Console.WriteLine("Wrong input, W - Up, S - Down, A - Left, D - Right, ESC - Exit. = Wall, * Finish");
-                        break;
+                    playerNewPositionX++;
+                    result = true;
+                    break;
             }
+
+            return result;
         }
 
         private static void ChagePlayerPosition(out int playerPositionX, out int playerPositionY, int playerNewPositionX, int playerNewPositionY)
