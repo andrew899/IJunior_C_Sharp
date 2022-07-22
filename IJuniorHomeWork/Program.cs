@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IJuniorHomeWork
 {
@@ -6,7 +7,20 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            PlayersDB playersDB = new PlayersDB();
         }
+    }
+
+    class PlayersDB
+    {
+        public PlayersDB()
+        {
+            List<Player> players = new List<Player>();
+        }
+    }
+
+    class Player
+    {
+
     }
 }
