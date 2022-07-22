@@ -13,7 +13,7 @@ namespace IJuniorHomeWork
             Player player = new Player(name, surname, positionX, positionY);
             Renderer renderer = new Renderer();
 
-            renderer.PrintPlayer(player.positionX, player.positionY);
+            renderer.PrintPlayer(player.PositionX, player.PositionY);
         }
     }
 
@@ -29,15 +29,16 @@ namespace IJuniorHomeWork
     {
         private string _name;
         private string _surname;
-        public int positionX { get; private set; }
-        public int positionY { get; private set; }
+
+        public int PositionX { get; private set; }
+        public int PositionY { get; private set; }
 
         public Player(string name, string surname, int positionX, int positionY)
         {
             _name = name;
             _surname = surname;
-            this.positionX = positionX;
-            this.positionY = positionY;
+            PositionX = positionX;
+            PositionY = positionY;
         }
 
         public string GetFullName() => _name + " " + _surname;
