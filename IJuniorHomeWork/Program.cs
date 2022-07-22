@@ -19,14 +19,9 @@ namespace IJuniorHomeWork
 
     internal class Renderer
     {
-        Lazy
-        public Renderer()
+        public void PrintPlayer(int playerX, int playerY)
         {
-        }
-
-        internal void PrintPlayer(int v1, int v2)
-        {
-            throw new NotImplementedException();
+            Console.WriteLine($"Player X: {playerX}. Player Y: {playerY}"); ;
         }
     }
 
@@ -45,6 +40,7 @@ namespace IJuniorHomeWork
             _positionY = positionY;
         }
 
+        public string GetFullName() => _name + " " + _surname;
         public int GetPlayerPositionX() => _positionX;
         public int GetPlayerPositionY() => _positionY;
     }
