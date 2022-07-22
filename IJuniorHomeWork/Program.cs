@@ -17,7 +17,7 @@ namespace IJuniorHomeWork
         }
     }
 
-    internal class Renderer
+    class Renderer
     {
         public void PrintPlayer(int playerX, int playerY)
         {
@@ -25,7 +25,7 @@ namespace IJuniorHomeWork
         }
     }
 
-    internal class Player
+    class Player
     {
         private string _name;
         private string _surname;
