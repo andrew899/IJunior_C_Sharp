@@ -7,14 +7,14 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            Database Database = new Database();
+            Database database = new Database();
 
             bool isWorking = true;
 
-            Database.AddPlayer("Vasya", "Pupkin");
-            Database.AddPlayer("Jhon", "Smit");
-            Database.AddPlayer("Samson", "Herkules");
-            Database.AddPlayer("Diatel", "Scvorcov");
+            database.AddPlayer("Vasya", "Pupkin");
+            database.AddPlayer("Jhon", "Smit");
+            database.AddPlayer("Samson", "Herkules");
+            database.AddPlayer("Diatel", "Scvorcov");
 
             while (isWorking)
             {
@@ -29,26 +29,26 @@ namespace IJuniorHomeWork
                 switch (userInput)
                 {
                     case "1":
-                        Database.AddPlayer();
+                        database.AddPlayer();
                         break;
 
                     case "2":
-                        Database.PrintAllPlayers();
+                        database.PrintAllPlayers();
                         break;
 
                     case "3":
 
-                        Database.BannPlayer();
+                        database.BannPlayer();
                         break;
 
                     case "4":
 
-                        Database.UnBannPlayer();
+                        database.UnBannPlayer();
                         break;
 
                     case "5":
 
-                        Database.DeletePlayerById();
+                        database.DeletePlayerById();
                         break;
 
                     case "6":
