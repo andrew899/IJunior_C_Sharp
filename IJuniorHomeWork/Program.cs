@@ -58,13 +58,13 @@ namespace IJuniorHomeWork
 
     internal class Card
     {
-        public int cardValue { get; private set; }
-        public string cardSuit { get; private set; }
+        public int CardValue { get; private set; }
+        public string CardSuit { get; private set; }
 
         public Card(int cardValue, string cardSuit)
         {
-            this.cardValue = cardValue;
-            this.cardSuit = cardSuit;
+            CardValue = cardValue;
+            CardSuit = cardSuit;
         }
     }
 }
