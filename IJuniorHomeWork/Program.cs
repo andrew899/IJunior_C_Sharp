@@ -103,7 +103,7 @@ namespace IJuniorHomeWork
         {
             foreach (Player player in _players)
             {
-                Console.WriteLine($"Player Id: {player.id}. Fullname: {player.GetFullName()}. BannFlag: {player.hasBann};");
+                Console.WriteLine($"Player Id: {player.Id}. Fullname: {player.GetFullName()}. BannFlag: {player.HasBann};");
             }
         }
 
@@ -137,7 +137,7 @@ namespace IJuniorHomeWork
             {
                 foreach (Player player in _players)
                 {
-                    if (player.id == userIdInput)
+                    if (player.Id == userIdInput)
                     {
                         playerOut = player;
                         result = true;
@@ -158,29 +158,29 @@ namespace IJuniorHomeWork
 
     class Player
     {
-        public int id { get; private set; }
-        public string name { get; private set; }
-        public string surname { get; private set; }
-        public bool hasBann { get; private set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public bool HasBann { get; private set; }
 
         public Player(int idIn, string nameIn, string surnameIn)
         {
-            id = idIn;
-            name = nameIn;
-            surname = surnameIn;
-            hasBann = false;
+            Id = idIn;
+            Name = nameIn;
+            Surname = surnameIn;
+            HasBann = false;
         }
 
-        public string GetFullName() => name + " " + surname;
+        public string GetFullName() => Name + " " + Surname;
 
         public void Bann()
         {
-            hasBann = true;
+            HasBann = true;
         }
 
         public void UnBann()
         {
-            hasBann = false;
+            HasBann = false;
         }
     }
 }
