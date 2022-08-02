@@ -65,7 +65,7 @@ namespace IJuniorHomeWork
 
     class Database
     {
-        private int _lastId = 0;
+        private int _lastUsedId = 0;
         private List<Player> _players = new List<Player>();
 
         public void AddPlayer()
@@ -78,12 +78,12 @@ namespace IJuniorHomeWork
             Console.Write("Enter Player Surname: ");
             surname = Console.ReadLine();
 
-            _players.Add(new Player(_lastId++, name, surname));
+            _players.Add(new Player(_lastUsedId++, name, surname));
         }
 
         public void AddPlayer(string name, string surname)
         {
-            _players.Add(new Player(_lastId++, name, surname));
+            _players.Add(new Player(_lastUsedId++, name, surname));
         }
 
         public bool DeletePlayerById()
@@ -103,7 +103,7 @@ namespace IJuniorHomeWork
         {
             foreach (Player player in _players)
             {
-                Console.WriteLine($"Player Id: {player.Id}. Fullname: {player.GetFullName()}. BannFlag: {player.HasBann};");
+                Console.WriteLine($"Player Id: {player.id}. Fullname: {player.GetFullName()}. BannFlag: {player.hasBann};");
             }
         }
 
@@ -137,11 +137,11 @@ namespace IJuniorHomeWork
             {
                 foreach (Player player in _players)
                 {
-                    if (player.Id == userIdInput)
+                    if (player.id == userIdInput)
                     {
                         playerOut = player;
                         result = true;
-                        break;
+                        return result;
                     }
                 }
 
@@ -158,33 +158,29 @@ namespace IJuniorHomeWork
 
     class Player
     {
-        private int _id;
-        private string _name;
-        private string _surname;
-        public bool HasBann { get; private set; }
+        public int id { get; private set; }
+        public string name { get; private set; }
+        public string surname { get; private set; }
+        public bool hasBann { get; private set; }
 
-        public int Id => _id;
-        public string Name => _name;
-        public string SurName => _surname;
-
-        public Player(int id, string name, string surname)
+        public Player(int idIn, string nameIn, string surnameIn)
         {
-            _id = id;
-            _name = name;
-            _surname = surname;
-            HasBann = false;
+            id = idIn;
+            name = nameIn;
+            surname = surnameIn;
+            hasBann = false;
         }
 
-        public string GetFullName() => _name + " " + _surname;
+        public string GetFullName() => name + " " + surname;
 
         public void Bann()
         {
-            HasBann = true;
+            hasBann = true;
         }
 
         public void UnBann()
         {
-            HasBann = false;
+            hasBann = false;
         }
     }
 }
