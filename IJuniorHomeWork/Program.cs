@@ -7,16 +7,14 @@ namespace IJuniorHomeWork
     {
         static void Main(string[] args)
         {
-            PlayersDB playersDB = new PlayersDB();
+            Database Database = new Database();
 
             bool isWorking = true;
-            int userIdInput;
-            bool playerBannFlag;
 
-            playersDB.AddPlayer("Vasya", "Pupkin");
-            playersDB.AddPlayer("Jhon", "Smit");
-            playersDB.AddPlayer("Samson", "Herkules");
-            playersDB.AddPlayer("Diatel", "Scvorcov");
+            Database.AddPlayer("Vasya", "Pupkin");
+            Database.AddPlayer("Jhon", "Smit");
+            Database.AddPlayer("Samson", "Herkules");
+            Database.AddPlayer("Diatel", "Scvorcov");
 
             while (isWorking)
             {
@@ -31,57 +29,26 @@ namespace IJuniorHomeWork
                 switch (userInput)
                 {
                     case "1":
-                        string name;
-                        string surname;
-
-                        Console.Write("Enter Player Name: ");
-                        name = Console.ReadLine();
-                        Console.Write("Enter Player Surname: ");
-                        surname = Console.ReadLine();
-
-                        playersDB.AddPlayer(name, surname);
-
+                        Database.AddPlayer();
                         break;
 
                     case "2":
-                        playersDB.PrintAllPlayers();
-
+                        Database.PrintAllPlayers();
                         break;
 
                     case "3":
-                        playerBannFlag = true;
-                        Console.Write("Enter Player Id: ");
-                        
-                        SetPlayerBannFlag(playersDB, playerBannFlag);
 
+                        Database.BannPlayer();
                         break;
 
                     case "4":
 
-                        playerBannFlag = false;
-
-                        Console.Write("Enter Player Id: ");
-
-                        SetPlayerBannFlag(playersDB, playerBannFlag);
-
+                        Database.UnBannPlayer();
                         break;
 
                     case "5":
 
-                        Console.Write("Enter Player Id: ");
-
-                        if (Int32.TryParse(Console.ReadLine(), out userIdInput))
-                        {
-                            if (playersDB.DeletePlayerById(userIdInput) == false)
-                            {
-                                Console.WriteLine($"No Player with Id: {userIdInput}.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Wrong Id input. Must be integer.");
-                        }
-
+                        Database.DeletePlayerById();
                         break;
 
                     case "6":
@@ -94,61 +61,39 @@ namespace IJuniorHomeWork
                 }
             }
         }
-
-        private static void SetPlayerBannFlag(PlayersDB playersDB, bool playerBannFlag)
-        {
-            int userIdInput;
-
-            if (Int32.TryParse(Console.ReadLine(), out userIdInput))
-            {
-                if (playersDB.SetBannPlayerFlagById(userIdInput, playerBannFlag) == false)
-                {
-                    Console.WriteLine($"No Player with Id: {userIdInput}.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Wrong Id input. Must be integer.");
-            }
-        }
     }
 
-    class PlayersDB
+    class Database
     {
         private int _lastId = 0;
         private List<Player> _players = new List<Player>();
+
+        public void AddPlayer()
+        {
+            string name;
+            string surname;
+
+            Console.Write("Enter Player Name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter Player Surname: ");
+            surname = Console.ReadLine();
+
+            _players.Add(new Player(_lastId++, name, surname));
+        }
 
         public void AddPlayer(string name, string surname)
         {
             _players.Add(new Player(_lastId++, name, surname));
         }
 
-        public bool DeletePlayerById(int playerId)
+        public bool DeletePlayerById()
         {
             bool result = false;
+            Player player;
 
-            foreach (Player player in _players)
+            if (TryGetPlayer(out player))
             {
-                if(player.Id == playerId)
-                {
-                    result = _players.Remove(player);
-                }
-            }
-
-            return result;
-        }
-
-        public bool SetBannPlayerFlagById(int playerId, bool bannFlag)
-        {
-            bool result = false;
-            foreach (Player player in _players)
-            {
-                if (player.Id == playerId)
-                {
-                    player.SetPlayerBann(bannFlag);
-                    result = true;
-                    break;
-                }
+                _players.Remove(player);
             }
 
             return result;
@@ -158,8 +103,56 @@ namespace IJuniorHomeWork
         {
             foreach (Player player in _players)
             {
-                Console.WriteLine($"Player Id: {player.Id}. Fullname: {player.GetFullName()}. BannFlag: {player.IsBanned};");
+                Console.WriteLine($"Player Id: {player.Id}. Fullname: {player.GetFullName()}. BannFlag: {player.HasBann};");
             }
+        }
+
+        internal void BannPlayer()
+        {
+            Player player;
+
+            if (TryGetPlayer(out player))
+            {
+                player.Bann();
+            }
+        }
+
+        internal void UnBannPlayer()
+        {
+            Player player;
+
+            if (TryGetPlayer(out player))
+            {
+                player.UnBann();
+            }
+        }
+
+        private bool TryGetPlayer (out Player playerOut)
+        {
+            bool result = false;
+            playerOut = null;
+            Console.Write("Enter Player Id: ");
+
+            if (Int32.TryParse(Console.ReadLine(), out int userIdInput))
+            {
+                foreach (Player player in _players)
+                {
+                    if (player.Id == userIdInput)
+                    {
+                        playerOut = player;
+                        result = true;
+                        break;
+                    }
+                }
+
+                Console.WriteLine("Wrong Id.");
+            }
+            else
+            {
+                Console.WriteLine("Wrong Id input.");
+            }
+
+            return result;
         }
     }
 
@@ -168,26 +161,30 @@ namespace IJuniorHomeWork
         private int _id;
         private string _name;
         private string _surname;
-        private bool _IsBanned;
+        public bool HasBann { get; private set; }
 
         public int Id => _id;
         public string Name => _name;
         public string SurName => _surname;
-        public bool IsBanned => _IsBanned;
 
         public Player(int id, string name, string surname)
         {
             _id = id;
             _name = name;
             _surname = surname;
-            _IsBanned = false;
+            HasBann = false;
         }
 
         public string GetFullName() => _name + " " + _surname;
 
-        public void SetPlayerBann(bool newBannFalg)
+        public void Bann()
         {
-            _IsBanned = newBannFalg;
+            HasBann = true;
+        }
+
+        public void UnBann()
+        {
+            HasBann = false;
         }
     }
 }
