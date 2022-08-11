@@ -24,11 +24,11 @@ namespace IJuniorHomeWork
                 switch (userInput)
                 {
                     case "1":
-                        player.AddCard(deck);
+                        player.AddOneCard(deck);
                         break;
 
                     case "2":
-                        player.AddCard(deck, "few");
+                        player.AddFewCards(deck);
                         break;
 
                     case "3":
@@ -49,56 +49,47 @@ namespace IJuniorHomeWork
 
     internal class Player
     {
-        private List<Card> _cardInHand = new List<Card>();
+        private List<Card> _cardsInHand = new List<Card>();
         
-        public void AddCard(DeckOfCards deck, string amountOfCards = "one")
+        public void AddOneCard(DeckOfCards deck)
         {
-            List<Card> cards;
+            Card card;
 
-            switch (amountOfCards)
+            if (deck.TryGetCard(out card))
             {
-                case "one":
-                    if (deck.TryGetCard(out cards))
-                    {
-                        _cardInHand.AddRange(cards);
-                    }
-                    break;
+                _cardsInHand.Add(card);
+            }
+        }
 
-                default:
-                    Console.Write("Enter amount of cards: ");
-                    string userAmountOfCards = Console.ReadLine();
+        public void AddFewCards(DeckOfCards deck)
+        {
+            Console.Write("Enter amount of cards: ");
+            string userAmountOfCards = Console.ReadLine();
 
-                    if (Int32.TryParse(userAmountOfCards, out int userAmount))
-                    {
-                        while (userAmount-- > 0)
-                        {
-                            if (deck.TryGetCard(out cards))
-                            {
-                                _cardInHand.AddRange(cards);
-                            }
-                        }
-                    }
-                    break;
+            if (Int32.TryParse(userAmountOfCards, out int userAmount))
+            {
+                for (int i = 0; i < userAmount; i++)
+                {
+                    AddOneCard(deck);                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("Wrong input.Must be number.");
             }
         }
 
         public void PrintAllCards()
         {
-            foreach (Card card in _cardInHand)
+            foreach (Card card in _cardsInHand)
             {
-                switch (card.CardSuit)
+                if (card.Suit == "Diamonds" || card.Suit == "Hearts")
                 {
-                    case "Hearts":
-                    case "Diamiond":
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{card.CardSuit, -8} : {card.CardValue}");
-                        Console.ResetColor();
-                        break;
-
-                    default:
-                        Console.WriteLine($"{card.CardSuit, -8} : {card.CardValue}");
-                        break;
+                    Console.ForegroundColor = ConsoleColor.Red;
                 }
+
+                Console.WriteLine($"{card.Suit,-8} : {card.Value}");
+                Console.ResetColor();
             }
         }
     }
@@ -106,13 +97,15 @@ namespace IJuniorHomeWork
     internal class DeckOfCards
     {
         private List<Card> _cards = new List<Card>();
+        private List<string> _cardSuits = new List<string> { "Diamonds", "Hearts", "Spades", "Clubs" };
+        private List<string> _cardNames = new List<string> { "Jack", "Queen", "King", "Ace" };
 
         public DeckOfCards()
         {
-            AddCardsSuit("Spades");
-            AddCardsSuit("Hearts");
-            AddCardsSuit("Clubs");
-            AddCardsSuit("Diamonds");
+            foreach (string cardSuit in _cardSuits)
+            {
+                AddCardsSuit(cardSuit);
+            }
 
             ShuffleDeck();
         }
@@ -124,25 +117,21 @@ namespace IJuniorHomeWork
                 _cards.Add(new Card(i.ToString(), suitName));
             }
 
-            _cards.Add(new Card("Jack", suitName));
-            _cards.Add(new Card("Queen", suitName));
-            _cards.Add(new Card("King", suitName));
-            _cards.Add(new Card("Ace", suitName));
+            foreach (string cardName in _cardNames)
+            {
+                _cards.Add(new Card(cardName, suitName));
+            }
         }
 
-        public bool TryGetCard(out List<Card> cardOut, int amountOfCards = 1)
+        public bool TryGetCard(out Card cardOut)
         {
             bool result = false;
-            cardOut = new List<Card>();
+            cardOut = null;
 
-            while (amountOfCards-- > 0)
+            if (_cards.Count > 0)
             {
-                if (_cards.Count > 0)
-                {
-                    cardOut.Add(_cards[0]);
-                    _cards.RemoveAt(0);
-                    result = true;
-                }
+                cardOut = _cards[0];
+                result = true;
             }
 
             return result;
@@ -166,31 +155,26 @@ namespace IJuniorHomeWork
         {
             foreach (Card card in _cards)
             {
-                switch (card.CardSuit)
+                if(card.Suit == _cardSuits[0] || card.Suit == _cardSuits[1])
                 {
-                    case "Hearts":
-                    case "Diamonds":
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{card.CardSuit, -8} : {card.CardValue}");
-                        Console.ResetColor();
-                        break;
-                    default:
-                        Console.WriteLine($"{card.CardSuit, -8} : {card.CardValue}");
-                        break;
+                    Console.ForegroundColor = ConsoleColor.Red;
                 }
+
+                Console.WriteLine($"{card.Suit, -8} : {card.Value}");
+                Console.ResetColor();
             }
         }
     }
 
     internal class Card
     {
-        public string CardValue { get; private set; }
-        public string CardSuit { get; private set; }
+        public string Value { get; private set; }
+        public string Suit { get; private set; }
 
         public Card(string cardValue, string cardSuit)
         {
-            CardValue = cardValue;
-            CardSuit = cardSuit;
+            Value = cardValue;
+            Suit = cardSuit;
         }
     }
 }
