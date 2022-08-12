@@ -143,8 +143,8 @@ namespace IJuniorHomeWork
 
             for (int i = _cards.Count - 1; i >= 1; i--)
             {
-                int nextPosition = i + 1;
-                int j = random.Next(nextPosition);
+                int randomMax = i + 1;
+                int j = random.Next(randomMax);
 
                 Card temp = _cards[j];
                 _cards[j] = _cards[i];
