@@ -107,7 +107,7 @@ namespace IJuniorHomeWork
                 AddCardsSuit(cardSuit);
             }
 
-            ShuffleDeck();
+            ShuffleCards();
         }
 
         private void AddCardsSuit(string suitName)
@@ -137,14 +137,14 @@ namespace IJuniorHomeWork
             return result;
         }
 
-        public void ShuffleDeck()
+        public void ShuffleCards()
         {
             Random random = new Random();
 
             for (int i = _cards.Count - 1; i >= 1; i--)
             {
-                int nearPosition = i + 1;
-                int j = random.Next(nearPosition);
+                int nextPosition = i + 1;
+                int j = random.Next(nextPosition);
 
                 Card temp = _cards[j];
                 _cards[j] = _cards[i];
