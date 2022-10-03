@@ -24,11 +24,11 @@ namespace IJuniorHomeWork
                 switch (userInput)
                 {
                     case "1":
-                        player.AddOneCard(deck);
+                        player.AddCard(deck);
                         break;
 
                     case "2":
-                        player.AddFewCards(deck);
+                        player.AddCards(deck);
                         break;
 
                     case "3":
@@ -51,7 +51,7 @@ namespace IJuniorHomeWork
     {
         private List<Card> _cardsInHand = new List<Card>();
         
-        public void AddOneCard(DeckOfCards deck)
+        public void AddCard(DeckOfCards deck)
         {
             Card card;
 
@@ -61,7 +61,7 @@ namespace IJuniorHomeWork
             }
         }
 
-        public void AddFewCards(DeckOfCards deck)
+        public void AddCards(DeckOfCards deck)
         {
             Console.Write("Enter amount of cards: ");
             string userAmountOfCards = Console.ReadLine();
@@ -70,7 +70,7 @@ namespace IJuniorHomeWork
             {
                 for (int i = 0; i < userAmount; i++)
                 {
-                    AddOneCard(deck);                    
+                    AddCard(deck);
                 }
             }
             else
