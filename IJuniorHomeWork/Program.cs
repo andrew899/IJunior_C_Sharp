@@ -53,9 +53,7 @@ namespace IJuniorHomeWork
         
         public void AddCard(DeckOfCards deck)
         {
-            Card card;
-
-            if (deck.TryGetCard(out card))
+            if (deck.TryGetCard(out Card card))
             {
                 _cardsInHand.Add(card);
             }
@@ -68,6 +66,11 @@ namespace IJuniorHomeWork
 
             if (Int32.TryParse(userAmountOfCards, out int userAmount))
             {
+                if (userAmount > deck.cardsInDeck)
+                {
+                    Console.WriteLine($"Deck has only {deck.cardsInDeck} cards.");
+                    userAmount = deck.cardsInDeck;
+                }
                 for (int i = 0; i < userAmount; i++)
                 {
                     AddCard(deck);
@@ -97,27 +100,30 @@ namespace IJuniorHomeWork
     internal class DeckOfCards
     {
         private List<Card> _cards = new List<Card>();
-        private List<string> _cardSuits = new List<string> { "Diamonds", "Hearts", "Spades", "Clubs" };
-        private List<string> _cardNames = new List<string> { "Jack", "Queen", "King", "Ace" };
+
+        public int cardsInDeck => _cards.Count;
 
         public DeckOfCards()
         {
-            foreach (string cardSuit in _cardSuits)
+            List<string> cardNames = new List<string> { "Jack", "Queen", "King", "Ace" };
+            List<string> cardSuits = new List<string> { "Diamonds", "Hearts", "Spades", "Clubs" };
+
+            foreach (string cardSuit in cardSuits)
             {
-                AddCardsSuit(cardSuit);
+                AddCardsSuit(cardSuit, cardNames);
             }
 
             ShuffleCards();
         }
 
-        private void AddCardsSuit(string suitName)
+        private void AddCardsSuit(string suitName, List<string> cardNames)
         {
             for (int i = 10; i > 0; i--)
             {
                 _cards.Add(new Card(i.ToString(), suitName));
             }
 
-            foreach (string cardName in _cardNames)
+            foreach (string cardName in cardNames)
             {
                 _cards.Add(new Card(cardName, suitName));
             }
@@ -131,6 +137,7 @@ namespace IJuniorHomeWork
             if (_cards.Count > 0)
             {
                 cardOut = _cards[0];
+                _cards.Remove(_cards[0]);
                 result = true;
             }
 
@@ -156,7 +163,7 @@ namespace IJuniorHomeWork
         {
             foreach (Card card in _cards)
             {
-                if(card.Suit == _cardSuits[0] || card.Suit == _cardSuits[1])
+                if(card.Suit == "Diamonds" || card.Suit == "Hearts")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
